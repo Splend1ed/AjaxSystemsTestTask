@@ -1,7 +1,4 @@
 from selenium.common import InvalidSelectorException, NoSuchElementException, TimeoutException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 
 from .page import Page
 
@@ -10,42 +7,38 @@ class LoginPage(Page):
     def __init__(
             self,
             driver,
-            login_btn: str,
-            login_field: str,
-            password_field: str,
-            button_next: str
+            login_btn_id: str,
+            login_field_id: str,
+            password_field_id: str,
+            button_next_id: str,
     ):
         super().__init__(driver)
-        self.login_btn = login_btn
-        self.login_field = login_field
-        self.password_field = password_field
-        self.button_next = button_next
+        self.login_btn_id = login_btn_id
+        self.login_field_id = login_field_id
+        self.password_field_id = password_field_id
+        self.button_next_id = button_next_id
 
     def login(self, email: str, password: str):
-        login_btn = self.find_element(self.login_btn)
-        login_btn.click()
+        login_btn = self.find_element(self.login_btn_id, 10)
+        self.click_element(login_btn)
 
-        login_input = self.find_element(self.login_field)
+        login_input = self.find_element(self.login_field_id, 10)
         login_input.clear()
         self.input_text(login_input, email)
 
-        password_input = self.find_element(self.password_field)
+        password_input = self.find_element(self.password_field_id, 5)
         password_input.clear()
         self.input_text(password_input, password)
 
-        confirm_button = self.find_element(self.button_next)
+        confirm_button = self.find_element(self.button_next_id, 5)
         self.click_element(confirm_button)
 
         return self
 
     def is_loggined(self):
         try:
-            self.find_element("com.ajaxsystems:id/cancel_button").click()
+            self.find_element("com.ajaxsystems:id/cancel_button", 7).click()
             return True
 
         except (NoSuchElementException, InvalidSelectorException, TimeoutException):
             return False
-
-
-
-

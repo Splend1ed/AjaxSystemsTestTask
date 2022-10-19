@@ -36,6 +36,3 @@ def test_user_login(user_login_fixture, email, password, expected):
     assert is_loggined == expected
     if is_loggined:
         user_login_fixture.log_out()
-
-
-

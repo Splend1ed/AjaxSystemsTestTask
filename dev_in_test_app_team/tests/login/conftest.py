@@ -12,6 +12,3 @@ def user_login_fixture(driver):
         "com.ajaxsystems:id/password",
         "com.ajaxsystems:id/next"
     )
-
-
-
